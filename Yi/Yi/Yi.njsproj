@@ -28,10 +28,13 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="api\models\usuarioModel.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="api\routes\test.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="api\routes\user.js">
+    <Compile Include="api\routes\usuarioRoute.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app.js">
@@ -46,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="api\" />
+    <Folder Include="api\models\" />
     <Folder Include="api\routes\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->

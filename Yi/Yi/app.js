@@ -3,7 +3,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 
-const testRoutes = require("./api/routes/test");
+const usuarioRoutes = require("./api/routes/usuarioRoute");
 
 
 app.use(morgan("dev"));
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 // Routes which should handle requests
-app.use("/test", testRoutes);
+app.use("/usuario", usuarioRoutes);
 
 
 app.use((req, res, next) => {
