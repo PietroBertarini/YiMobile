@@ -2,6 +2,8 @@
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const expressValidator = require("express-validator");
+const expressSessions = require("express-session");
 
 const usuarioRoutes = require("./api/routes/usuarioRoute");
 
@@ -25,6 +27,8 @@ app.use((req, res, next) => {
 
 // Routes which should handle requests
 app.use("/usuario", usuarioRoutes);
+app.use(expressSessions({ secret: 'max', saveUninitialized: false, resave: false }));
+app.use(expressValidator());
 
 
 app.use((req, res, next) => {
