@@ -70,8 +70,8 @@ router.get('/verCotacao', (req, res, next) => {
 router.get('/', (req, res, next) => {
     coinmarketcap.get("bitcoin", coin => {
         console.log(coin.price_usd);
-      //  var now = moment();
-       var  myDate = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+        //  var now = moment();
+        var myDate = moment(new Date()).utcOffset(-6).format("YYYY-MM-DD HH:mm:ss");
         //var created = new Date();
        // created = now;
         const cotacao = {
@@ -86,11 +86,19 @@ router.get('/', (req, res, next) => {
                 throw err;
             }
         });
+        var querySelect = mysql.query("SELECT * FROM cotacao", function (err, result) {
+            if (err) {
+                throw err;
+            }
+            
+            res.status(200).json({
+                message: 'cotacao get',
+                cotacao: result
+
+            })
+        });
     
-        res.status(200).json({
-            message: 'cotacao get',
-            cotacao: cotacao
-        })
+    
 
 
     });
