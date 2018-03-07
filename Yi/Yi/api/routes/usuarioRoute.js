@@ -35,8 +35,7 @@ router.post('/login', (req, res, next) => {
             }
             if (ress) {
                 const token=jwt.sign({
-                    email: result[0].email,
-                    senha: result[0].senha
+                    id: result[0].idUsuario
 
                 },'senha',
                 {

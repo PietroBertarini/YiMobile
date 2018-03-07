@@ -1,17 +1,11 @@
-﻿const express = require("express");
-const router = express.Router();
-const mysql = require('./sqlConnection');
-//const Cotacao = require("../models/cotacaoModel");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+﻿const mysql = require('./sqlConnection');
 const CoinMarketCap = require("node-coinmarketcap");
 const moment = require("moment");
-
 const CronJob = require('cron').CronJob;
 
 var coinmarketcap = new CoinMarketCap();
 //coinmarketcap.get("BTC", coin => {
- //   console.log(coin.price_usd); // Prints the price in USD of BTC at the moment.
+//   console.log(coin.price_usd); // Prints the price in USD of BTC at the moment.
 //});
 
 
@@ -30,8 +24,8 @@ router.get('/', (req, res, next) => {
             data: myDate,
             exchange: "us"
         };
-        
-       // const job = new CronJob('*/1 * * * *', () => {
+
+        // const job = new CronJob('*/1 * * * *', () => {
         /*
         var queryInsert = mysql.query('INSERT INTO cotacao SET ? ', cotacao, function (err, result) {
             console.log(queryInsert.sql);
@@ -40,19 +34,19 @@ router.get('/', (req, res, next) => {
             }
             });
         }, null, true, 'America/Sao_Paulo');*/
-       
+
         var querySelect = mysql.query("SELECT * FROM cotacao ORDER BY idCotacao DESC", function (err, result) {
-                if (err) {
-                    throw err;
-                }
+            if (err) {
+                throw err;
+            }
 
-                res.status(200).json({
-                    message: 'cotacao get',
-                    cotacao: result
+            res.status(200).json({
+                message: 'cotacao get',
+                cotacao: result
 
-                })
-            });
-        
+            })
+        });
+
 
 
     });
@@ -61,8 +55,8 @@ router.get('/', (req, res, next) => {
 
 
 });
-    // var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
-   
-   
+// var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
+
+
 
 module.exports = router;

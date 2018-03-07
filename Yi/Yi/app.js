@@ -8,6 +8,7 @@ const expressSessions = require("express-session");
 
 const usuarioRoutes = require("./api/routes/usuarioRoute");
 const cotacaoRoutes = require("./api/routes/cotacaoRoute");
+const ordemRoutes = require("./api/routes/ordemRoute");
 
 
 app.use(morgan("dev"));
@@ -31,8 +32,10 @@ app.use((req, res, next) => {
 // Routes which should handle requests
 app.use("/usuario", usuarioRoutes);
 app.use("/cotacao", cotacaoRoutes);
+app.use("/ordem", ordemRoutes);
 app.use(expressSessions({ secret: 'max', saveUninitialized: false, resave: false }));
 app.use(expressValidator());
+
 
 
 app.use((req, res, next) => {
