@@ -37,9 +37,6 @@
     <Compile Include="api\routes\cotacaoRoute.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="api\routes\createCotacao.js">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="api\routes\ordemRoute.js">
       <SubType>Code</SubType>
     </Compile>

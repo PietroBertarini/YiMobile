@@ -31,15 +31,15 @@ router.get('/', (req, res, next) => {
             exchange: "us"
         };
         
-       // const job = new CronJob('*/1 * * * *', () => {
-        /*
+        
+        
         var queryInsert = mysql.query('INSERT INTO cotacao SET ? ', cotacao, function (err, result) {
             console.log(queryInsert.sql);
             if (err) {
                 throw err;
             }
             });
-        }, null, true, 'America/Sao_Paulo');*/
+     
        
         var querySelect = mysql.query("SELECT * FROM cotacao ORDER BY idCotacao DESC", function (err, result) {
                 if (err) {

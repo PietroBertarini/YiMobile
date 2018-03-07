@@ -15,13 +15,27 @@ var coinmarketcap = new CoinMarketCap();
 
 
 router.get('/', checkToken, (req, res, next) => {
-    var idLogIn = req.userData.id;
-    res.status(200).json({
-        message: 'ordem get',
-        id: req.userData.id
-    })
-});
+  
+    var querySelect = mysql.query("SELECT * FROM ordem WHERE usuarioId=" + req.userData.id+" ORDER BY idOrdem DESC", function (err, result) {
+            if (err) {
+                throw err;
+        }
+            console.log(querySelect);
 
+            res.status(200).json({
+                message: 'ordem get',
+                cotacao: result
+
+            })
+        });
+
+
+
+
+
+
+
+});
 
 router.post('/', checkToken, (req, res, next) => {
     var myDate = moment(new Date()).utcOffset(-3).format("YYYY-MM-DD HH:mm:ss");

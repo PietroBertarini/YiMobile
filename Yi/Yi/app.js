@@ -1,9 +1,14 @@
 ﻿const express = require("express");
+const CoinMarketCap = require("node-coinmarketcap");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 const expressSessions = require("express-session");
+const moment = require("moment");
+const CronJob = require('cron').CronJob;
+const mysql = require('./api/routes/sqlConnection');
+var coinmarketcap = new CoinMarketCap();
 
 
 const usuarioRoutes = require("./api/routes/usuarioRoute");
@@ -37,6 +42,27 @@ app.use(expressSessions({ secret: 'max', saveUninitialized: false, resave: false
 app.use(expressValidator());
 
 
+coinmarketcap.get("bitcoin", coin => {
+    var myDate = moment(new Date()).utcOffset(-3).format("YYYY-MM-DD HH:mm:ss");
+    const cotacao = {
+        moeda: "btc",
+        valor: coin.price_usd,
+        data: myDate,
+        exchange: "us"
+    };
+
+    const job = new CronJob('*/1 * * * *', () => {
+
+        var queryInsert = mysql.query('INSERT INTO cotacao SET ? ', cotacao, function (err, result) {
+            console.log(queryInsert.sql);
+            if (err) {
+                throw err;
+            }
+        });
+    }, null, true, 'America/Sao_Paulo');
+
+
+});
 
 app.use((req, res, next) => {
     const error = new Error("Not found");
