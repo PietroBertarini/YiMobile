@@ -31,6 +31,9 @@
     <Compile Include="api\models\usuarioModel.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="api\routes\cotacaoRoute.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="api\routes\test.js">
       <SubType>Code</SubType>
     </Compile>

@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 
 
 
+
 router.get('/', (req, res, next) => {
     res.status(200).json({
         message: 'usuario get'

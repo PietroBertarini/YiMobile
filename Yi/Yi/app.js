@@ -5,12 +5,15 @@ const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 const expressSessions = require("express-session");
 
+
 const usuarioRoutes = require("./api/routes/usuarioRoute");
+const cotacaoRoutes = require("./api/routes/cotacaoRoute");
 
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -27,6 +30,7 @@ app.use((req, res, next) => {
 
 // Routes which should handle requests
 app.use("/usuario", usuarioRoutes);
+app.use("/cotacao", cotacaoRoutes);
 app.use(expressSessions({ secret: 'max', saveUninitialized: false, resave: false }));
 app.use(expressValidator());
 
