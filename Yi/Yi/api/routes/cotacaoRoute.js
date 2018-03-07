@@ -70,15 +70,23 @@ router.get('/verCotacao', (req, res, next) => {
 router.get('/', (req, res, next) => {
     coinmarketcap.get("bitcoin", coin => {
         console.log(coin.price_usd);
-        var now = moment();
-        var formatted = now.format('YYYY-MM-DD HH:mm:ss Z');
+      //  var now = moment();
+       var  myDate = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+        //var created = new Date();
+       // created = now;
         const cotacao = {
             moeda: "btc",
             valor: coin.price_usd,
-            data: formatted,
+            data: myDate,
             exchange: "us"
         };
-        console.log(formatted);
+        var queryInsert = mysql.query('INSERT INTO cotacao SET ?', cotacao, function (err, result) {
+            console.log(queryInsert.sql);
+            if (err) {
+                throw err;
+            }
+        });
+    
         res.status(200).json({
             message: 'cotacao get',
             cotacao: cotacao
