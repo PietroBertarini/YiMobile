@@ -43,7 +43,7 @@ app.use(expressValidator());
 
 
 coinmarketcap.get("bitcoin", coin => {
-    var myDate = moment(new Date()).utcOffset(-3).format("YYYY-MM-DD HH:mm:ss");
+    var myDate = moment(new Date()).utcOffset(-6).format("YYYY-MM-DD HH:mm:ss");
     const cotacao = {
         moeda: "btc",
         valor: coin.price_usd,

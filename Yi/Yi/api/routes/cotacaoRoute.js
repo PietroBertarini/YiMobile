@@ -10,20 +10,13 @@ const moment = require("moment");
 const CronJob = require('cron').CronJob;
 
 var coinmarketcap = new CoinMarketCap();
-//coinmarketcap.get("BTC", coin => {
- //   console.log(coin.price_usd); // Prints the price in USD of BTC at the moment.
-//});
-
-
 
 
 router.get('/', (req, res, next) => {
     coinmarketcap.get("bitcoin", coin => {
         console.log(coin.price_usd);
-        //  var now = moment();
+  
         var myDate = moment(new Date()).utcOffset(-6).format("YYYY-MM-DD HH:mm:ss");
-        //var created = new Date();
-        // created = now;
         const cotacao = {
             moeda: "btc",
             valor: coin.price_usd,
@@ -61,7 +54,6 @@ router.get('/', (req, res, next) => {
 
 
 });
-    // var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
    
    
 

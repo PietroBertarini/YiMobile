@@ -6,8 +6,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 
-
-
 router.get('/', (req, res, next) => {
     res.status(200).json({
         message: 'usuario get'
@@ -43,7 +41,9 @@ router.post('/login', (req, res, next) => {
                 })
                 return res.status(200).json({
                     message: 'Login Sucess',
+                    idUsuario: result[0].idUsuario,
                     tokenLogIn: token
+                   
                 });
 
             }
@@ -53,15 +53,12 @@ router.post('/login', (req, res, next) => {
             });
 
         });
-              //  res.status(400).json({
-               //     message: 'usuario existente'
-               // });
-
+          
             }
         });
     } else {
         res.status(400).json({
-            message: 'campo vazio',
+            message: 'campo vazio ou formato errado(coloque em json)',
         });
     }
 });
@@ -108,7 +105,7 @@ router.post('/signup', (req, res, next) => {
         });
     }else {
         res.status(400).json({
-            message: 'campo vazio',
+            message: 'campo vazio ou formato errado(coloque em json)',
         });
     } 
 });
