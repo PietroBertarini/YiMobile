@@ -34,15 +34,15 @@ app.use((req, res, next) => {
     next();
 });
 
-// Routes which should handle requests
+// Rotas da API
 app.use("/usuario", usuarioRoutes);
 app.use("/cotacao", cotacaoRoutes);
 app.use("/ordem", ordemRoutes);
 app.use(expressSessions({ secret: 'max', saveUninitialized: false, resave: false }));
 app.use(expressValidator());
 
-
-coinmarketcap.get("bitcoin", coin => {
+//Inserindo uma cotacao nova a cada minuto em background.
+coinmarketcap.get("BTC", coin => {
     var myDate = moment(new Date()).utcOffset(-6).format("YYYY-MM-DD HH:mm:ss");
     const cotacao = {
         moeda: "btc",
@@ -50,11 +50,10 @@ coinmarketcap.get("bitcoin", coin => {
         data: myDate,
         exchange: "us"
     };
-
     const job = new CronJob('*/1 * * * *', () => {
 
         var queryInsert = mysql.query('INSERT INTO cotacao SET ? ', cotacao, function (err, result) {
-            console.log(queryInsert.sql);
+            //console.log(queryInsert.sql);
             if (err) {
                 throw err;
             }

@@ -31,16 +31,10 @@
     <Compile Include="api\middleware\checkToken.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="api\models\usuarioModel.js">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="api\routes\cotacaoRoute.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="api\routes\ordemRoute.js">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="api\routes\test.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="api\routes\usuarioRoute.js">
@@ -58,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="api\" />
-    <Folder Include="api\models\" />
     <Folder Include="api\middleware\" />
     <Folder Include="api\routes\" />
   </ItemGroup>
