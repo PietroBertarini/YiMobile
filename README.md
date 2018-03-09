@@ -98,9 +98,9 @@ Em seguida acesse a pasta YI e depois a Yi novamente(sim,2x kkk) ate acessar a p
 ```bash
 +$ node server.js
 ```
-Em seguida aba o Postmen(ou outro software para testar api rest) e entre em localhost:XXXXX(O XXXXX será substituido pela porta que voce colocou em server.js) e em seguida acesses as rotas definidas abaixo.
+Em seguida aba o Postman(ou outro software para testar api rest) e entre em localhost:XXXXX(O XXXXX será substituido pela porta que voce colocou em server.js) e em seguida acesses as rotas definidas abaixo.
 ![postmen](https://user-images.githubusercontent.com/17735088/37228665-1f16802c-23c0-11e8-8795-ccf0a6d90920.png)
-Imagem do postmen
+Imagem do postman
 # Uso
 
 ### {post}localhost:XXXXX/usuario/signup
