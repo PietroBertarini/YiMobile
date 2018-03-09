@@ -1,4 +1,5 @@
 ﻿const jwt = require('jsonwebtoken');
+const checkToken = require("../middleware/checkToken");
 
 module.exports = (req, res,next) => {
     try {

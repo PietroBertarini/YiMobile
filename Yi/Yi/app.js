@@ -7,7 +7,7 @@ const expressValidator = require("express-validator");
 const expressSessions = require("express-session");
 const moment = require("moment");
 const CronJob = require('cron').CronJob;
-const mysql = require('./api/routes/sqlConnection');
+const mysql = require('./sqlConnection');
 var coinmarketcap = new CoinMarketCap();
 
 
