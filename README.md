@@ -185,7 +185,8 @@ Examplo da saida ao acessar esta rota
 
 ### {get}localhost:XXXXX/ordem
 Rota em que o cliente podera ver as ordem relacionadas ao seu Id.Por ser uma ordem privada,é necessário que o token de LogIn(obtido ao realizar o logIn na api) seja colocado no header do json.Utilizando a key Authorization.
-![authorization](https://user-images.githubusercontent.com/17735088/37228572-de81104a-23bf-11e8-8476-da5a2bf00071.png)
+![authorization 2](https://user-images.githubusercontent.com/17735088/37228749-66e70ce6-23c0-11e8-989f-5f6cb7b7b091.png)
+
 
 
 Examplo da saida ao acessar esta rota
