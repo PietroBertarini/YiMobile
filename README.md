@@ -16,10 +16,85 @@ podem ser ordens criadas em nosso banco local somente. Pode utilizar o método d
 autenticação que preferir e utilize o MySQL como banco de dados.
 
 # Install
+Primeiramente abra o banco de dados local(que utilize MySQL) e crie as seguintes tabelas
 
-```bash
-$ npm install jsonwebtoken
+```js
+DROP TABLE IF EXISTS `cotacao`;
+CREATE TABLE `cotacao` (
+  `idCotacao` int(11) NOT NULL AUTO_INCREMENT,
+  `moeda` varchar(45) NOT NULL,
+  `valor` int(11) NOT NULL,
+  `data` datetime DEFAULT NULL,
+  `exchange` varchar(45) NOT NULL,
+  PRIMARY KEY (`idCotacao`),
+  UNIQUE KEY `idCotacao_UNIQUE` (`idCotacao`)
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8;
+
 ```
+
+```js
+
+DROP TABLE IF EXISTS `ordem`;
+CREATE TABLE `ordem` (
+  `idOrdem` int(11) NOT NULL AUTO_INCREMENT,
+  `usuarioId` int(11) DEFAULT NULL,
+  `data` datetime DEFAULT NULL,
+  `qtdbtc` int(11) DEFAULT NULL,
+  `valorporbtc` int(11) DEFAULT NULL,
+  `tipoCompraVenda` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`idOrdem`),
+  UNIQUE KEY `idOrdem_UNIQUE` (`idOrdem`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+
+
+```
+
+```js
+
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE `usuario` (
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+
+```
+Essas tabelas que serao utilizadas para a realização do trabalho.Em seguida acesse o arquivo sqlConnection.js e complete as informações de acordo com o seu banco de dados local.
+Exemplo:
+```js
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host: 'localhost', //modifique aqui
+    user: 'root', //modifique aqui
+    password: 'senha', //modifique aqui
+    port: '3000', //modifique aqui
+    database: 'yidt' //modifique aqui
+});
+connection.connect((err) => {
+    if (err) {
+        throw err;
+    }
+    console.log('my sql connected');
+
+});
+module.exports = connection;
+```
+Em seguida,modifique em qual porta vc ira testar a API no arquivo server.js .
+
+```js
+'use strict';
+var http = require('http');
+var port = process.env.PORT || 1337;//modifique aqui
+
+const app = require('./app');
+const server = http.createServer(app);
+
+
+server.listen(port);
+```
+Em seguida acesse a pasta YI e depois a Yi novamente(sim,2x kkk) ate acessar a pasta onde se encontra o server.js
 
 # Uso
 
