@@ -95,9 +95,9 @@ const server = http.createServer(app);
 server.listen(port);
 ```
 Em seguida acesse a pasta YI e depois a Yi novamente(sim,2x kkk) ate acessar a pasta onde se encontra o server.js em seguide rode o comando 
-+```bash
+```bash
 +$ node server.js
-+```
+```
 Em seguida aba o Postmen(ou outro software para testar api rest) e entre em localhost:XXXXX(O XXXXX será substituido pela porta que voce colocou em server.js) e em seguida acesses as rotas definidas abaixo.
 # Uso
 
