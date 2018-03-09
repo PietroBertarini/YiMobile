@@ -108,7 +108,7 @@ Rota em que o cliente realiza o cadastro na api,seus dados irão ser salvos no b
 Dados que irao ser necessarios para o signUp:
 `email` email em que o cliente ira se cadastrar,após cadastrado,esse email não pode ser utilizado novamente para cadastro.
 `senha` senha do cliente que será criptografada no banco de dados local para segurança do cliente.
-
+(lembre-se que sempre ao se fazer um post,o body deve estar em formato JSON)
 Examplo de json para realizar um cadastro.
 
 ```js
