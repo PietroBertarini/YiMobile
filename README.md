@@ -2,16 +2,7 @@
 
 Teste de Desenvolvimento
 
-Yi Mobile
-23 de fevereiro de 2018
-
-1 Proposta
-O NodeJS é um interpretador de JavaScript desenvolvido em cima da engine do Chrome.
-
-É baseado em eventos, possui I/O não bloqueante, leve e eficiente. Além disto, seu geren-
-ciador de pacotes, npm, é o maior ecossistema de bibliotecas open source do mundo.Nesse
-
-teste iremos construir uma API simples, utilizando pacotes de terceiros que será utilizada
+Nesse teste iremos construir uma API simples, utilizando pacotes de terceiros que será utilizada
 para um aplicativo Mobile e Web com dados em JSON.
 A API deve ser implementada usando REST. A API deve permitir que o cliente se
 cadastre e realize login publicamente, ou seja, essas funções deve ser possível acessar
@@ -30,68 +21,156 @@ autenticação que preferir e utilize o MySQL como banco de dados.
 $ npm install jsonwebtoken
 ```
 
-# Migration notes
+# Uso
 
-* [From v7 to v8](https://github.com/auth0/node-jsonwebtoken/wiki/Migration-Notes:-v7-to-v8)
+### {post}localhost:XXXXX/usuario/signup
+Rota em que o cliente realiza o cadastro na api,seus dados irão ser salvos no banco de dados local.
+Dados que irao ser necessarios para o signUp:
+`email` email em que o cliente ira se cadastrar,após cadastrado,esse email não pode ser utilizado novamente para cadastro.
+`senha` senha do cliente que será criptografada no banco de dados local para segurança do cliente.
 
-# Usage
-
-### jwt.sign(payload, secretOrPrivateKey, [options, callback])
-
-(Asynchronous) If a callback is supplied, the callback is called with the `err` or the JWT.
-
-(Synchronous) Returns the JsonWebToken as string
-
-`payload` could be an object literal, buffer or string representing valid JSON. *Please note that* `exp` is only set if the payload is an object literal. Buffer or string payloads are not checked for JSON validity.
-
-`secretOrPrivateKey` is a string, buffer, or object containing either the secret for HMAC algorithms or the PEM
-encoded private key for RSA and ECDSA. In case of a private key with passphrase an object `{ key, passphrase }` can be used (based on [crypto documentation](https://nodejs.org/api/crypto.html#crypto_sign_sign_private_key_output_format)), in this case be sure you pass the `algorithm` option.
-
-`options`:
-
-* `algorithm` (default: `HS256`)
-* `expiresIn`: expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms). Eg: `60`, `"2 days"`, `"10h"`, `"7d"`
-* `notBefore`: expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms). Eg: `60`, `"2 days"`, `"10h"`, `"7d"`
-* `audience`
-* `issuer`
-* `jwtid`
-* `subject`
-* `noTimestamp`
-* `header`
-* `keyid`
-* `mutatePayload`: if true, the sign function will modify the payload object directly. This is useful if you need a raw reference to the payload after claims have been applied to it but before it has been encoded into a token.
-
-If `payload` is not a buffer or a string, it will be coerced into a string using `JSON.stringify`.
-
-There are no default values for `expiresIn`, `notBefore`, `audience`, `subject`, `issuer`. These claims can also be provided in the payload directly with `exp`, `nbf`, `aud`, `sub` and `iss` respectively, but you can't include in both places.
-
-Remember that `exp`, `nbf` and `iat` are **NumericDate**, see related [Token Expiration (exp claim)](#token-expiration-exp-claim)
-
-
-The header can be customized via the `options.header` object.
-
-Generated jwts will include an `iat` (issued at) claim by default unless `noTimestamp` is specified. If `iat` is inserted in the payload, it will be used instead of the real timestamp for calculating other things like `exp` given a timespan in `options.expiresIn`.
-
-Example
+Examplo de json para realizar um cadastro.
 
 ```js
-// sign with default (HMAC SHA256)
-var jwt = require('jsonwebtoken');
-var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
-//backdate a jwt 30 seconds
-var older_token = jwt.sign({ foo: 'bar', iat: Math.floor(Date.now() / 1000) - 30 }, 'shhhhh');
+{
+"email":"exemplo@exemple.com",
+"senha":"senhaSecreta"
+}
+```
+caso de certo,uma mensagem sera enviada.
+```js
+{
+    "message": "user created"
+}
+```
+caso de errado,uma mensagem sera enviada para mostrar o erro.
+```js
+{
+    "message": "usuario ja existente"
+}
+```
+### {post}localhost:XXXXX/usuario/login
 
-// sign with RSA SHA256
-var cert = fs.readFileSync('private.key');  // get private key
-var token = jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256'});
+Rota em que o cliente realiza o logIn na api,um token sera criado para o acesso as funções privadas da api.
+Dados que irao ser necessarios para o logIn:
+`email` email do cliente.
+`senha` senha do cliente que foi cadastrada.
 
-// sign asynchronously
-jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256' }, function(err, token) {
-  console.log(token);
-});
+Examplo de json para realizar logIn.
+
+```js
+{
+"email":"exemplo@exemple.com",
+"senha":"senhaSecreta"
+}
+```
+Caso de certo uma mensagem sera enviada
+
+```js
+{
+    "message": "Login Sucess",
+    "idUsuario": 22,
+    "tokenLogIn": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIsImlhdCI6MTUyMDYyMjg4NiwiZXhwIjoxNTIwNjI2NDg2fQ.dr0IcDB-8gdLp14qPRcD-AoBMC8L97-ojojgq9ipWhk"
+}
+```
+caso de errado,uma mensagem sera enviada:
+{
+    "message": "Senha incorreta"
+}
+
+### {get}localhost:XXXXX/cotacao
+
+Rota em que o cliente podera ver as cotacoes passadas que foram salvas no banco de dados local
+
+Examplo da saida ao acessar esta rota
+```js
+    "cotacao": [
+        {
+            "idCotacao": 117,
+            "moeda": "btc",
+            "valor": 8896,
+            "data": "2018-03-09T16:18:32.000Z",
+            "exchange": "us"
+        },
+        {
+            "idCotacao": 116,
+            "moeda": "btc",
+            "valor": 8990,
+            "data": "2018-03-09T15:44:28.000Z",
+            "exchange": "us"
+        }
+              ]
+    
 ```
 
-#### Token Expiration (exp claim)
+### {get}localhost:XXXXX/ordem
+Rota em que o cliente podera ver as ordem relacionadas ao seu Id.Por ser uma ordem privada,é necessário que o token de LogIn(obtido ao realizar o logIn na api) seja colocado no header do json.Utilizando a key Authorization.
+{IMAGEM DO PRINT}
+
+Examplo da saida ao acessar esta rota
+```js
+    {
+    "Ordens": [
+        {
+            "idOrdem": 26,
+            "usuarioId": 20,
+            "data": "2018-03-09T15:44:21.000Z",
+            "qtdbtc": 11,
+            "valorporbtc": 8968,
+            "tipoCompraVenda": "compra"
+        },
+        {
+            "idOrdem": 25,
+            "usuarioId": 20,
+            "data": "2018-03-09T15:41:21.000Z",
+            "qtdbtc": 11,
+            "valorporbtc": 8968,
+            "tipoCompraVenda": "compra"
+        },
+    
+```
+Caso o cliente esqueça o token ou insira um token invalido,uma mensagem de erro sera mostrada
+```js
+   {
+    "message": "Problem at login token,please login again e try again with a new token"
+    }
+    
+```
+
+### {post}localhost:XXXXX/ordem
+Rota em que o cliente podera criar uma ordem relacionada ao seu Id.Por ser uma função privada,será necessário um token de LogIn(obtido ao realizar o logIn na api) seja colocado no header do json.Utilizando a key Authorization.
+
+
+Exemplo de body do json para ordem
+```js
+   {
+	"qtdbtc": "23",
+	"tipoCompraVenda": "compra"
+	
+}
+```
+Os valores de valorporbtc,data,usuarioId sao automaticamente preenchidos pelo sistema.Utilizando o horario atual e a cotação atual.
+Exemplo de saida ao completar a criação da ordem:
+```js
+  {
+    "message": "ordem criada",
+    "ordem": {
+        "usuarioId": 20,
+        "data": "2018-03-09 15:44:21",
+        "qtdbtc": "11",
+        "valorporbtc": 8968,
+        "tipoCompraVenda": "compra"
+    }
+}
+```
+
+
+
+
+
+
+
+
 
 The standard for JWT defines an `exp` claim for expiration. The expiration is represented as a **NumericDate**:
 
